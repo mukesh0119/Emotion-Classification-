@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audit Page</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #428bca;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .navbar-logo .logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .navbar-title {
+            color: #ffffff;
+            font-size: 24px;
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+            margin-right: 100px;
+        }
+
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin-top: 40px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #333333;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            table-layout: fixed;
+        }
+
+        th, td {
+            padding: 15px;
+            border-bottom: 1px solid #cccccc;
+            text-align: left;
+            font-weight: normal;
+        }
+
+        .result {
+            font-weight: bold;
+            color: #428bca;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background-color: #428bca;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #3071a9;
+        }
+        
+        .navbar::before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: calc(100% + 10px);
+            height: calc(100% + 10px);
+            background: linear-gradient(135deg, #e3e3e3, #f8f8f8);
+            border-radius: 15px;
+            z-index: -1;
+        }
+        
+        .navbar-title {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: calc(100% + 30px);
+            height: calc(100% + 30px);
+            background: linear-gradient(135deg, #e3e3e3, #f8f8f8);
+            border-radius: 15px;
+            z-index: -1;
+        }
+        
+        h1 {
+            position: relative;
+            z-index: 1;
+        }
+        
+        table {
+            position: relative;
+            z-index: 1;
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th {
+            background-color: #428bca;
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        
+        td {
+            background-color: #ffffff;
+            transition: background-color 0.3s ease;
+        }
+        
+        tbody tr:nth-child(even) td {
+            background-color: #f8f8f8;
+        }
+        
+        tbody tr:hover td {
+            background-color: #eaf2f8;
+        }
+        
+        .result {
+            font-weight: bold;
+            color: #428bca;
+        }
+        
+        a {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background-color: #428bca;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #3071a9;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-logo">
+            <img class="logo" src="static/images/logo.jpg" alt="My Logo">
+        </div>
+        <h1 class="navbar-title">Audit Page</h1>
+    </div>
+    <div class="container">
+        <h1>Audit Data</h1>
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="position: sticky; top: 0; background-color: #428bca;">Input</th>
+                        <th style="position: sticky; top: 0; background-color: #428bca;">Predicted Class</th>
+                        <th style="position: sticky; top: 0; background-color: #428bca;">Emotion</th>
+                        <th style="position: sticky; top: 0; background-color: #428bca;">Date</th>
+                        <th style="position: sticky; top: 0; background-color: #428bca;">Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entry in audit_data %}
+                    <tr>
+                        <td>{{ entry.input }}</td>
+                        <td>{{ entry.class }}</td>
+                        <td>{{ entry.emotion }}</td>
+                        <td>{{ entry.date }}</td>
+                        <td>{{ entry.time }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <a href="/">Go Back</a>
+    </div>
+</body>
+</html>
