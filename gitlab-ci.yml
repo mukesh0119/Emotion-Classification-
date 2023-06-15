@@ -1,0 +1,29 @@
+stages:
+  - build
+  - deploy
+
+build_job:
+  stage: build
+  image: python:3.8
+
+  before_script:
+    - pip install -r requirements.txt
+
+  script:
+    - python -m nltk.downloader stopwords punkt
+    - python -m nltk.download 'punkt' 'stopwords'
+    - python index.py
+
+deploy_job:
+  stage: deploy
+  image: python:3.8
+
+  before_script:
+    - pip install -r requirements.txt
+
+  script:
+    - apt-get update && apt-get install -y wget
+    - wget https://gitlab.com/gitlab-org/cloud-deploy/raw/master/binaries/linux/amd64/cloud-deploy -O /usr/local/bin/cloud-deploy
+    - chmod +x /usr/local/bin/cloud-deploy
+    - cloud-deploy login --token $group15_deploy_token
+    - cloud-deploy deploy --name my-model --image python:3.8 --command "python index.py"
