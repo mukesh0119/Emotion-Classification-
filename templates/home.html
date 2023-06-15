@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emotion Classification</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #428bca;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .navbar-logo {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .navbar-logo .logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .navbar-title {
+            color: #ffffff;
+            font-size: 24px;
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+            margin-right: 100px;
+        }
+
+        .navbar-button {
+            margin-left: auto;
+        }
+
+        .navbar-button a {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #428bca;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-button a:hover {
+            background-color: #5c408e;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            margin-top: 40px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        h1 {
+            color: #333333;
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 30px;
+            color: #666666;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: left;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            padding: 12px;
+            background-color: #428bca;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3071a9;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: calc(100% + 30px);
+            height: calc(100% + 30px);
+            background: linear-gradient(135deg, #428bca, #6f53a2);
+            border-radius: 15px;
+            z-index: -1;
+        }
+        
+        .container::after {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: calc(100% + 10px);
+            height: calc(100% + 10px);
+            background: linear-gradient(135deg, #e3e3e3, #f8f8f8);
+            border-radius: 15px;
+            z-index: -1;
+        }
+        
+        h1 {
+            position: relative;
+            z-index: 1;
+        }
+        
+        input[type="submit"] {
+            background-color: #6f53a2;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #5c408e;
+        }
+
+        
+        body:before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(#f2f2f2 20%, transparent 20%), radial-gradient(#f2f2f2 20%, transparent 20%);
+            background-size: 10px 10px;
+            background-position: 0 0, 5px 5px;
+        }
+        
+        
+        .navbar-title {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .container {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        input[type="submit"] {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        
+        .container::before,
+        .container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+        }
+        
+        input[type="text"] {
+            background-color: #f8f8f8;
+            border: 1px solid #cccccc;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #428bca;
+            box-shadow: 0 0 5px rgba(66, 139, 202, 0.5);
+        }
+        
+        input[type="submit"] {
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        input[type="submit"]:hover {
+            background-color: #3071a9;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-logo">
+            <img class="logo" src="static/images/logo.jpg" alt="Your Logo">
+        </div>
+        <h1 class="navbar-title">Classification of Emotions</h1>
+        <div class="navbar-button">
+            <a href="/audit">Audit Page</a>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Emotion Classification</h1>
+        <form action="/predict" method="post">
+            <label for="text">Enter a sentence:</label>
+            <br>
+            <input type="text" id="text" name="text" required>
+            <br>
+            <input type="submit" value="Classify">
+        </form>
+    </div>
+</body>
+</html>
